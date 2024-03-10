@@ -1,17 +1,15 @@
-import java.util.*;
+// 좋아요를 가장 많이 받은 풀이
 
-public class Solution {
-  public int solution(int[] people, int limit) {
-    int answer = 0;
+import java.util.Arrays;
 
-    Arrays.sort(people);
-
-    int min = 0;
-
-    for (int max = people.length - 1; min <= max; max--){
-      if (people[min] + people[max] <= limit) min++;
-      answer++;
-    }
-    return answer;
+class Solution {
+    public int solution(int[] people, int limit) {
+        Arrays.sort(people);
+        int i = 0, j = people.length - 1;
+        for (; i < j; --j) {
+            if (people[i] + people[j] <= limit)
+                ++i;
+        }
+        return people.length - i;
     }
 }
