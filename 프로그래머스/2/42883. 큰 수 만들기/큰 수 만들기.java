@@ -1,36 +1,20 @@
-import java.util.*;
+// 가장 좋아요를 많이 받은 풀이
+import java.util.Stack;
 class Solution {
     public String solution(String number, int k) {
-        // 그리디 알고리즘
-        // 각 자리에서 최고로 높은 수가 나오는 경우를 생각하기
-        
-        String answer = "";
-        StringBuilder answerBuilder = new StringBuilder();
+        char[] result = new char[number.length() - k];
+        Stack<Character> stack = new Stack<>();
 
-        
-        char[] array = number.toCharArray();
-        
-        int len = array.length - k;
-        
-        // 문자 비교를 시작하는 인덱스를 나타내는 start 변수 
-        int start = 0;
-
-        for(int i =0; i<len; i++){
-            char max = '0';
-            for(int j = start; j <= i + k; j++){
-                // 가장 큰수를 골라서 그 다음 인덱스를 시작 인덱스로 설정하기 
-                if(array[j] > max){
-                    max = array[j];
-                    start=j+1;
-                }
+        for (int i=0; i<number.length(); i++) {
+            char c = number.charAt(i);
+            while (!stack.isEmpty() && stack.peek() < c && k-- > 0) {
+                stack.pop();
             }
-            // 가장 큰 문자를 String에 넣어주기
-            answerBuilder.append(Character.toString(max));
+            stack.push(c);
         }
-        
-        // k개의 수를 제거할 때 얻을 수 있는 가장 큰 숫자를 구하려 한다 
-        answer = answerBuilder.toString();
-        return answer;
+        for (int i=0; i<result.length; i++) {
+            result[i] = stack.get(i);
+        }
+        return new String(result);
     }
-    
 }
