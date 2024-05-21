@@ -1,32 +1,31 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            int t = Integer.parseInt(br.readLine());
-            for(int i = 0; i < t; i++) {
-                int n = Integer.parseInt(br.readLine());
-                int maxNum = -1000000;
-                int minNum = 1000000;
-                int[] nums = new int[n];
-                String[] line = br.readLine().split(" ");
-                for(int j = 0; j < n; j++) {
-                    nums[j] = Integer.parseInt(line[j]);
+        int n = Integer.parseInt(br.readLine());
+
+        for (int i = 0; i < n; i++) {
+            int m = Integer.parseInt(br.readLine());
+            int min = Integer.MAX_VALUE;
+            int max = Integer.MIN_VALUE;
+            StringTokenizer st = new StringTokenizer(br.readLine());
+
+            for (int j = 0; j < m; j++)
+            {
+                int num = Integer.parseInt(st.nextToken());
+                if (num < min) {
+                    min = num;
                 }
-                for(int j = 0; j < n; j++) {
-                    if(nums[j] > maxNum) {
-                        maxNum = nums[j];
-                    }
-                    if(nums[j] < minNum) {
-                        minNum = nums[j];
-                    }
+                if (num > max) {
+                    max = num;
                 }
-                System.out.println(minNum + " " + maxNum);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+            System.out.println(min + " " + max);
         }
     }
-
 }
